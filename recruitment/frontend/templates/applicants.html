@@ -1,0 +1,11 @@
+{% for applicant in applicants %}
+    <tr class="table-active">
+        <th scope="row">{{ applicant.id }}</th>
+        <td>{{ applicant.firstname }} {{ applicant.lastname }}</td>
+        <td>{{ applicant.age }}</td>
+        <td>{{ applicant.job }}</td>
+        <td>
+            <a href=""></a>
+        </td>
+    </tr>
+{% endfor %}
