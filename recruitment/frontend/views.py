@@ -10,19 +10,18 @@ def index(request):
     lastname = request.GET.get('lastname', False)
     job = request.GET.get('job', False)
 
+    applicants = Applicants.objects.all()
+
     if bool(firstname) or bool(lastname) or bool(job):
-        #applicants = Applicants.objects.raw("SELECT * FROM applicants_applicants WHERE firstname LIKE %'" +firstname+ "'% OR '"+lastname+ "' LIKE %'" +lastname +"'% OR job LIKE %'" + job + "'%")
-        results = []
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM applicants_applicants WHERE firstname LIKE '%"+firstname+"%' OR lastname LIKE '%"+lastname+"%' OR job LIKE '%"+job+"%'")
+        if bool(firstname):
+            applicants = applicants.filter(firstname__icontains=firstname)
 
-            for obj in cursor.fetchall():
-                results.append({"id": obj[0], "firstname": obj[1], "lastname": obj[2] , "age": obj[3], "job": obj[4], "created": obj[5]})
-        applicants = results
+        if bool(lastname):
+            applicants = applicants.filter(lastname__icontains=lastname)
 
-        #applicants = Applicants.objects.raw("SELECT * FROM applicants_applicants WHERE firstname LIKE '%ade%' OR lastname LIKE '%ojugbeli%' OR job LIKE '%harm%' OR age LIKE '' OR created_at LIKE '' ")
-    else:
-        applicants = Applicants.objects.all()
+        if bool(job):
+            applicants = applicants.filter(job__icontains=job)
+        
 
     return render(request, 'index.html', {'applicants': applicants}) #passing 
 
