@@ -9,8 +9,12 @@ verify_ssl = true
 django = "*"
 djangorestframework = "*"
 pymysql = "*"
-mysqlclient = "*"
 pipreqs = "*"
+django-heroku = "*"
+gunicorn = "*"
+dj-database-url = "*"
+whitenoise = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.7"
